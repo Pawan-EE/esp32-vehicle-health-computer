@@ -1,0 +1,38 @@
+name: Firmware and protocol tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  protocol:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: g++ -std=c++17 -Wall -Wextra -Werror -fsanitize=address,undefined tests/test_obd.cpp -o /tmp/test-obd && /tmp/test-obd
+  firmware:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mode: [demo, passive, live]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+      - run: |
+          arduino-cli config init
+          arduino-cli config add board_manager.additional_urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+          arduino-cli core update-index
+          arduino-cli core install esp32:esp32@3.3.12
+      - name: Select build mode
+        env:
+          BUILD_MODE: ${{ matrix.mode }}
+        run: |
+          python3 - <<'PY'
+          import os, pathlib
+          p = pathlib.Path('firmware/VehicleHealthComputer/config.h')
+          s = p.read_text()
+          if os.environ['BUILD_MODE'] != 'demo':
+              s = s.replace('DEMO_MODE = true', 'DEMO_MODE = false')
+          if os.environ['BUILD_MODE'] == 'live':
+              s = s.replace('ENABLE_OBD_REQUESTS = false', 'ENABLE_OBD_REQUESTS = true')
+          p.write_text(s)
+          PY
+      - run: arduino-cli compile --fqbn esp32:esp32:esp32s3 firmware/VehicleHealthComputer

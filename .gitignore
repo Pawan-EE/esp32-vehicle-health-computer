@@ -1,0 +1,10 @@
+build*/
+.arduino*/
+*.bin
+*.elf
+*.map
+*.o
+*.exe
+.DS_Store
+secrets.h
+vehicle-logs/

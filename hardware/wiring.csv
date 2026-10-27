@@ -1,0 +1,13 @@
+From,To,Signal,Requirement
+OBD pin 16,Fused protected supply input,Vehicle battery positive,Never direct to MCU
+Protected supply 5V,ESP32-S3 documented 5V input,Regulated power,Verify USB power isolation
+OBD pin 4,Power return/common ground,Chassis ground,Keep buck return on power path
+OBD pin 5,Signal reference/common ground,Signal ground,Confirm grounding with breakout documentation
+OBD pin 6,SN65HVD230 CANH,CAN high,Short twisted pair
+OBD pin 14,SN65HVD230 CANL,CAN low,No added termination on vehicle stub
+ESP32-S3 3V3,SN65HVD230 VCC,3.3V,Decouple locally
+ESP32-S3 GND,SN65HVD230 GND,Common ground,Nonisolated prototype
+ESP32-S3 GPIO11,SN65HVD230 D/TXD,TWAI TX,Verify exact board GPIO availability
+SN65HVD230 R/RXD,ESP32-S3 GPIO13,TWAI RX,3.3V logic only
+SN65HVD230 RS,GND,High-speed mode,Verify existing module strap
+SN65HVD230 Vref,Unconnected,Reference output,Not used

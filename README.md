@@ -65,6 +65,7 @@ Follow [hardware design](docs/hardware.md) and [bring-up checklist](docs/bring-u
 ```text
 firmware/VehicleHealthComputer/  Arduino sketch, configuration, decoder, dashboard
 hardware/block-diagram.svg      Editable electrical block/wiring diagram
+hardware/block-diagram.png      Rendered diagram for viewing and sharing
 hardware/wiring.csv             Pin-to-pin wiring reference
 docs/hardware.md               BOM, power protection, assembly constraints
 docs/firmware.md               Protocol scope, state machine, API, PID formulas

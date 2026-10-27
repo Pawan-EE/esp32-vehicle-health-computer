@@ -7,6 +7,9 @@ Software verification is recorded separately from physical validation. No ESP32 
 ## Automated checks
 
 - Arduino IDE target: `esp32:esp32:esp32s3`, Arduino-ESP32 core 3.3.12.
+- Local demo build passed on 2026-10-27: 901,696 bytes flash and 46,528 bytes static RAM before the small demo-MIL consistency adjustment. Final commit build results are tracked by CI.
+- Local live-mode build passed on 2026-10-27: 907,172 bytes flash and 46,696 bytes static RAM. The verification copy enabled requests; the distributed configuration remains demo-only by default.
+- Embedded dashboard JavaScript passed `node --check` syntax validation.
 - CI builds demo, passive and live configurations independently.
 - Host C++ tests cover PID conversion and length rejection, supported-mask boundaries, DTC character formatting, single and multi-frame ISO-TP, sequence rejection, oversize rejection and 128-byte sequence rollover.
 - Host CI enables address and undefined-behavior sanitizers.

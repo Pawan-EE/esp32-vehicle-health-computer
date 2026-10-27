@@ -156,7 +156,7 @@ void demo() {
   for(size_t i=0;i<sizeof(metrics)/sizeof(metrics[0]);i++) {
     metrics[i].value=values[i]; metrics[i].seen=metrics[i].supported=true; metrics[i].updated=now;
   }
-  monitorSeen=true; monitorAt=now; mil=false; dtcCount=0;
+  monitorSeen=true; monitorAt=now; mil=codes.length()>0; dtcCount=mil?1:0;
 }
 void jsonStatus() {
   uint32_t now=millis(); String out; out.reserve(2300);
